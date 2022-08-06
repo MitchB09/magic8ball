@@ -32,6 +32,7 @@ jobs:
         cd ui
         npm install
         npm run build
+        cd ../
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -42,7 +43,7 @@ jobs:
     
     - name: Sync build output with bucket
       run: |
-        aws s3 sync build/ s3://${{ secrets.AWS_S3_BUCKET }}
+        aws s3 sync ui/build/ s3://${{ secrets.AWS_S3_BUCKET }}
     
     - name: Invalidate cache
       run: 

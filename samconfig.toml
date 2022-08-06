@@ -8,4 +8,4 @@ s3_prefix = "magic8ball"
 region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "Stage=\"dev\""
+parameter_overrides = "Stage=\"master\""

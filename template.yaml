@@ -103,7 +103,7 @@ Resources:
         PriceClass: PriceClass_100
         ViewerCertificate:
           SslSupportMethod: 'sni-only'
-          AcmCertificateArn: arn:aws:acm:us-east-1:791956792554:certificate/be6c437a-760b-4ee4-9a89-a2bb7995e6ff
+          AcmCertificateArn: !Sub arn:aws:acm:us-east-1:${AWS::AccountId}:certificate/615eac8a-2629-404b-920f-a13786a50626
           MinimumProtocolVersion: 'TLSv1.2_2019'
 
 
