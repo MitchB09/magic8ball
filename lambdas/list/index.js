@@ -1,40 +1,39 @@
 const AWS = require("aws-sdk");
 
 exports.handler = function (event, context, callback) {
-  const ddb = new AWS.DynamoDB.DocumentClient();
-  let Magic8BallTable = process.env.SIMPLE_LISTS_TABLE;
+  const responses = [
+    "It is certain.",
+    "It is decidedly so.",
+    "Without a doubt.",
+    "Yes definitely.",
+    "You may rely on it.",
+    "As I see it, yes.",
+    "Most likely.",
+    "Outlook good.",
+    "Yes.",
+    "Signs point to yes.",
+    "Reply hazy, try again.",
+    "Ask again later.",
+    "Better not tell you now.",
+    "Cannot predict now.",
+    "Concentrate and ask again.",
+    "Don't count on it.",
+    "My reply is no.",
+    "My sources say no.",
+    "Outlook not so good.",
+    "Very doubtful.",
+  ];
 
-  var params = {
-    ExpressionAttributeValues: {
-      ":userId": "PUBLIC",
-    },
-    KeyConditionExpression: "userId = :userId",
-    TableName: Magic8BallTable,
+  const getResponse = () => {
+    return responses[Math.floor(Math.random() * responses.length)];
   };
 
-  ddb.query(params, function (err, data) {
-    if (err) {
-      callback(null, {
-        statusCode: 500,
-        body: JSON.stringify({
-          Error: err.message,
-        }),
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-        isBase64Encoded: false,
-      });
-    } else {
-      // successful response
-      console.log(data);
-      callback(null, {
-        statusCode: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify(data.Items),
-        isBase64Encoded: false,
-      });
-    }
+  callback(null, {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({ response: getResponse() }),
+    isBase64Encoded: false,
   });
 };

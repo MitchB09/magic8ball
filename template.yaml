@@ -16,27 +16,9 @@ Globals:
   Function:
     Timeout: 5
     Handler: index.handler
-    Runtime: nodejs18.x
-    Environment:
-      Variables:
-        SIMPLE_LISTS_TABLE: !Ref Magic8BallTable
+    Runtime: nodejs12.x
 
 Resources:
-
-  Magic8BallTable:
-    Type: 'AWS::DynamoDB::Table'
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: 'userId'
-          AttributeType: 'S'
-        - AttributeName: 'id'
-          AttributeType: 'S'
-      KeySchema:
-        - AttributeName: 'userId'
-          KeyType: 'HASH'
-        - AttributeName: 'id'
-          KeyType: 'RANGE'
-      BillingMode: PAY_PER_REQUEST
 
   ListApiGateway:
     Type: AWS::Serverless::Api
@@ -57,18 +39,11 @@ Resources:
       CodeUri: lambdas/list
       Policies:
       - AWSLambdaBasicExecutionRole # AWS Managed Policy
-      - Version: '2012-10-17'         # Inline Policy
-        Statement:
-          - Effect: Allow
-            Action:
-              - dynamodb:Query
-            Resource: 
-              - !GetAtt Magic8BallTable.Arn
       Events:
         RestApiEvent:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /public/lists
+            Path: /
             Method: get
             Auth:
               Authorizer: NONE

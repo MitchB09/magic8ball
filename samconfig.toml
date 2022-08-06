@@ -2,11 +2,10 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "simple-lists"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1bzw1xzl756lj"
-s3_prefix = "simple-lists"
+stack_name = "magic8ball"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1iriw7pcgy02w"
+s3_prefix = "magic8ball"
 region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-tags = "project=\"simple-lists\" stage=\"dev\""
 parameter_overrides = "Stage=\"dev\""
