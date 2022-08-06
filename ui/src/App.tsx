@@ -7,12 +7,12 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="response" data-testId="response">
-          {response}
+      <div className="App-header">
+        <span data-testid="response">{response}</span>
+        <div className="shakeBtn">
+          <button onClick={() => setResponse(getResponse())}>Shake</button>
         </div>
-        <button onClick={() => setResponse(getResponse())}>Try Again</button>
-      </header>
+      </div>
     </div>
   );
 }
