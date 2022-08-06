@@ -41,10 +41,16 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
     
+    - name: Set AWS S3 Bucket Values from Stack Output
+      run: echo "S3Bucket = $(aws cloudformation describe-stacks --stack-name magic8ball --output json | jq '.Stacks[].Outputs[] | select(.OutputKey == "\""S3Bucket"\"") | .OutputValue')" >> $GITHUB_ENV
+
     - name: Sync build output with bucket
       run: |
-        aws s3 sync ui/build/ s3://${{ secrets.AWS_S3_BUCKET }}
+        aws s3 sync ui/build/ s3://${{ env.S3Bucket }}
     
+    - name: Set AWS CloudFront Distribution from Stack Output
+      run: echo "CloudFrontDistribution = $(aws cloudformation describe-stacks --stack-name magic8ball --output json | jq '.Stacks[].Outputs[] | select(.OutputKey == "\""CloudFrontDisribution"\"") | .OutputValue')" >> $GITHUB_ENV
+
     - name: Invalidate cache
       run: 
-        aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+        aws cloudfront create-invalidation --distribution-id ${{ env.CloudFrontDistribution }} --paths "/*"
