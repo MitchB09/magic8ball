@@ -42,14 +42,14 @@ jobs:
         aws-region: us-east-1
     
     - name: Set AWS S3 Bucket Values from Stack Output
-      run: echo "S3Bucket = $(aws cloudformation describe-stacks --stack-name magic8ball --output json | jq '.Stacks[].Outputs[] | select(.OutputKey == "\""S3Bucket"\"") | .OutputValue')" >> $GITHUB_ENV
+      run: echo "S3Bucket = $(aws cloudformation describe-stacks --stack-name magic8ball --output json | jq '.Stacks[].Outputs[] | select(.OutputKey == "S3Bucket") | .OutputValue')" >> $GITHUB_ENV
 
     - name: Sync build output with bucket
       run: |
         aws s3 sync ui/build/ s3://${{ env.S3Bucket }}
     
     - name: Set AWS CloudFront Distribution from Stack Output
-      run: echo "CloudFrontDistribution = $(aws cloudformation describe-stacks --stack-name magic8ball --output json | jq '.Stacks[].Outputs[] | select(.OutputKey == "\""CloudFrontDisribution"\"") | .OutputValue')" >> $GITHUB_ENV
+      run: echo "CloudFrontDistribution = $(aws cloudformation describe-stacks --stack-name magic8ball --output json | jq '.Stacks[].Outputs[] | select(.OutputKey == "CloudFrontDisribution") | .OutputValue')" >> $GITHUB_ENV
 
     - name: Invalidate cache
       run: 
