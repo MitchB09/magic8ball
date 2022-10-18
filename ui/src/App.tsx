@@ -20,7 +20,7 @@ function App() {
         {displayed &&
           <>
             <span className="fadeIn" data-testid="response">{response}</span>
-            <span onClick={shakeBall} className="askAgain">Ask Again?</span>
+            <span onClick={shakeBall} className="askAgain">Try Again?</span>
           </>
         }
       </div>
