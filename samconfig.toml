@@ -8,4 +8,7 @@ s3_prefix = "magic8ball"
 region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "Stage=\"master\""
+parameter_overrides = "CertificateId=\"a80fc763-8c70-4a19-a9de-8c8ea6ba4ae1\" Stage=\"master\""
+resolve_s3 = true
+disable_rollback = true
+image_repositories = []
